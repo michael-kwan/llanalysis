@@ -2,16 +2,13 @@ from bs4 import BeautifulSoup as bs
 import requests
 import json
 
-INPUTDATA = 'login.ini'
-LOGINFILE = 'https://www.learnedleague.com/ucp.php?mode=login'
-
 def login():
     logindetails = json.load(open('logindata.json'))
     payload = {'login': 'Login'}
     payload['username'] = logindetails['learnedleague']['username']
     payload['password'] = logindetails['learnedleague']['password']
     ses1 = requests.Session()
-    ses1.post(LOGINFILE, data=payload)
+    ses1.post('https://www.learnedleague.com/ucp.php?mode=login', data=payload)
     return ses1
 
 def read_dataset(path_to_dataset, filename):
@@ -22,7 +19,6 @@ def read_dataset(path_to_dataset, filename):
             name.replace(" ", "_")
             players.append(name)
     return players
-
 
 def get_player_stats(player_name, session=login()):
     url = "https://learnedleague.com/profiles/previous.php?" + player_name.lower()
@@ -57,5 +53,3 @@ def get_player_stats(player_name, session=login()):
     except:
         print ("error occured for " + player_name)
         return 0, 0
-
-get_player_stats('barbt')
