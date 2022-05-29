@@ -1,4 +1,6 @@
-.pyc
+*.pyc
+*.csv
+*.txt
 .DS_Store
 logindata.json
 
