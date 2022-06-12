@@ -17,13 +17,13 @@ def login():
 def get_player_ids(session=None):
     players2 = {}
     if not session:
-        print("retrieving players from local")
+        #print("retrieving players from local")
         reader = csv.reader(open('./data/players.csv', 'r'))
         for row in reader:
             k, v = row
             players2[k] = v
     else:
-        print("retrieving players from remote")
+        #print("retrieving players from remote")
         url = 'https://learnedleague.com/backend-search.php?term='
         r = session.get(url)
         data = r.content
@@ -35,4 +35,9 @@ def get_player_ids(session=None):
             players2[link.p.span.text.lower()] = link['href']
         np.savetxt("./data/players.csv", players, delimiter=',', fmt='% s')
     return players2
+
+def url_to_bs(url, session):
+    page = session.get(url).content
+    soup = bs(page, features='html.parser')
+    return soup
 

@@ -1,0 +1,12 @@
+create a logindata.json file in the top level, it should be structured as follows:
+
+'''
+{
+    "learnedleague": {
+        "username": xxxxx,
+        "password": xxxxx
+    }
+}
+'''
+
+
